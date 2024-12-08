@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تست API فیلم‌ها</title>
+</head>
+<body>
+    <h1>تست API فیلم‌ها</h1>
+
+    <!-- فرم برای افزودن فیلم جدید -->
+    <h3>افزودن فیلم جدید</h3>
+    <input type="text" id="title" placeholder="عنوان فیلم" required>
+    <input type="text" id="genre" placeholder="ژانر فیلم" required>
+    <input type="number" id="rating" placeholder="امتیاز فیلم" required>
+    <button onclick="addMovie()">افزودن فیلم</button>
+    <p id="addResult"></p>
+
+    <!-- فرم برای حذف فیلم
+    <h3>حذف فیلم</h3>
+    <input type="number" id="deleteId" placeholder="ID فیلم برای حذف" required>
+    <button onclick="deleteMovie()">حذف فیلم</button>
+    <p id="deleteResult"></p> -->
+
+    <!-- دکمه برای نمایش فیلم‌ها -->
+    <h3>نمایش فیلم‌ها</h3>
+    <button onclick="fetchMovies()">نمایش فیلم‌ها</button>
+    <div id="movieList"></div>
+
+    <script>
+        // افزودن فیلم جدید
+        function addMovie() {
+            const title = document.getElementById('title').value;
+            const genre = document.getElementById('genre').value;
+            const rating = parseFloat(document.getElementById('rating').value);
+
+            if (!title || !genre || isNaN(rating)) {
+                alert('لطفاً تمامی فیلدها را پر کنید.');
+                return;
+            }
+
+            fetch('http://localhost:8080/movies', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, genre, rating })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('addResult').innerText = 'فیلم با موفقیت اضافه شد: ' + data;
+            })
+            .catch(error => {
+                document.getElementById('addResult').innerText = 'خطا در افزودن فیلم: ' + error;
+            });
+        }
+
+        // // حذف فیلم
+        // function deleteMovie() {
+        //     const id = parseInt(document.getElementById('deleteId').value);
+
+        //     if (isNaN(id)) {
+        //         alert('لطفاً یک ID معتبر وارد کنید.');
+        //         return;
+        //     }
+
+        //     fetch(`http://localhost:8080/movies/${id}`, {
+        //         method: 'DELETE',
+        //     })
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             return Promise.reject('خطا در حذف فیلم');
+        //         }
+        //         return response.text();
+        //     })
+        //     .then(data => {
+        //         document.getElementById('deleteResult').innerText = 'فیلم با موفقیت حذف شد: ' + data;
+        //     })
+        //     .catch(error => {
+        //         document.getElementById('deleteResult').innerText = 'خطا در حذف فیلم: ' + error;
+        //     });
+
+        // }
+
+        // نمایش فیلم‌ها
+        function fetchMovies() {
+            fetch('http://localhost:8080/movies', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                const movieListContainer = document.getElementById('movieList');
+                movieListContainer.innerHTML = ''; // پاک کردن محتویات قبلی
+
+                if (data.length === 0) {
+                    movieListContainer.innerHTML = 'هیچ فیلمی در پایگاه داده موجود نیست.';
+                    return;
+                }
+
+                let movieListHtml = '<ul>';
+                data.forEach(movie => {
+                    movieListHtml += `<li>ID: ${movie.id} | عنوان: ${movie.title} | ژانر: ${movie.genre} | امتیاز: ${movie.rating}</li>`;
+                });
+                movieListHtml += '</ul>';
+
+                movieListContainer.innerHTML = movieListHtml;
+            })
+            .catch(error => {
+                document.getElementById('movieList').innerText = 'خطا در دریافت فیلم‌ها: ' + error;
+            });
+        }
+    </script>
+
+</body>
+</html>
