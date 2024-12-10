@@ -4,20 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تست API فیلم‌ها</title>
-    <script src="./app.js" defer></script>
+    <title>MovieApp</title>
+    <script src="./app.js" defer>
+    </script>
 </head>
 
-<body>
-    <h1>تست API فیلم‌ها</h1>
+<body style=" text-align: right;  font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+background-color: #1b1b1b;">
+    
+    <h1 style="text-align: center;color: aliceblue;">MovieApp</h1>
 
-    <!-- فرم برای افزودن فیلم جدید -->
-    <h3>افزودن فیلم جدید</h3>
-    <input type="text" id="title" placeholder="عنوان فیلم" required>
-    <input type="text" id="genre" placeholder="ژانر فیلم" required>
-    <input type="number" id="rating" placeholder="امتیاز فیلم" required>
-    <button onclick="addMovie()">افزودن فیلم</button>
-    <p id="addResult"></p>
+    <div class="slider-container" style="  position: relative; border-radius:0px 0px 15px 15px; box-shadow: 0px 0px 10px 1px rgb(255, 76, 76);
+    width: 99.5%;
+    max-width: 800px;
+    text-align: center;
+    margin:1px;
+    overflow: hidden;">
+        <div class="slider" style="  display: flex; text-align: center;
+  transition: transform 0.5s ease-in-out; height: auto;">
+          <div class="slide" style="  min-width: 100%;
+  transition: 0.5s ease;"><img src="https://picsum.photos/200/170" alt="تصویر 1" style="  width: 100%; border-radius:0px 0px 15px 15px;
+  height: 300px;
+  display: block;"></div>
+          <div class="slide" style="  min-width: 100%;
+  transition: 0.5s ease;"><img src="Screenshot_20231124_035303.png" alt="تصویر 2"style="  width: 100%;border-radius:0px 0px 15px 15px;
+  height: 300px;
+  display: block;"></div>
+          <div class="slide" style="  min-width: 100%;
+  transition: 0.5s ease;"><img src="https://picsum.photos/200/170" alt="تصویر 3"style="  width: 100%;border-radius:0px 0px 15px 15px;
+  height: 300px;
+  display: block;"></div>
+        </div>
+      </div>
+
+
 
     <!-- فرم برای حذف فیلم
     <h3>حذف فیلم</h3>
@@ -26,11 +48,14 @@
     <p id="deleteResult"></p> -->
 
     <!-- دکمه برای نمایش فیلم‌ها -->
-    <h3>نمایش فیلم‌ها</h3>
+    <h3 style="text-align: left;color: aliceblue; margin-left: 20px;">Movies List</h3>
     <!-- <button onclick="fetchMovies()">نمایش فیلم‌ها</button> -->
     <div>
-        <ul id="movieList"></ul>
+        <ul id="movieList" style="display: flex; overflow-y: hidden; overflow-x: scroll; padding: 10px;"></ul>
     </div>
+    
+        <button onclick="gotopage()" title="Add Movie" style="width: 45px; height: 45px;border-radius: 23px;font-size: larger; position: sticky;border: 0px;box-shadow: 0px 0px 10px 1px blue;
+        bottom: 20px; right: 20px;cursor: pointer;">+</button>
 
 
 </body>

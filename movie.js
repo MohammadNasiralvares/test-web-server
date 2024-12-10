@@ -6,7 +6,6 @@ let getIdUrl = new URLSearchParams(location.search);
 let idMovie = getIdUrl.get("id")
 
 const textBody = document.querySelector('.textBody')
-
 // textBody.innerHTML = idMovie
 
 window.addEventListener('load', () => {
@@ -28,6 +27,8 @@ window.addEventListener('load', () => {
             textBody.insertAdjacentHTML('beforeend', `
                 ID: ${movie.id} | عنوان: ${movie.title} | ژانر: ${movie.genre} | امتیاز: ${movie.rating}
                 `)
+
+            
 
         })
 })

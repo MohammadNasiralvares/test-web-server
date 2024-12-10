@@ -71,15 +71,17 @@ function fetchMovies() {
             } else {
 
                 data.forEach(movie => {
-
+                    //داخل divرو ادیت کن
                     movieListContainer.insertAdjacentHTML('beforeend', `
 
-                        
-                    <li><a href="http://127.0.0.1:5500/movie.html?id=${movie.id}">ID: ${movie.id} | عنوان: ${movie.title} | ژانر: ${movie.genre} | امتیاز: ${movie.rating}</a></li>
+                    
+                    <div style="display: inline-block;text-align: center;"><li style="text-align: center; width: 190;margin-left:8px;margin-right:20px;background-color: #3e3e3e;border-radius: 10px;box-shadow: 0px 0px 10px 1px blue; list-style:none;padding:10px;margin-top:20px;" ><a href="http://127.0.0.1:5500/movie.html?id=${movie.id}" style="text-decoration:none; color: white;"><img src="https://picsum.photos/150/120" alt="${movie.title}" style="border-radius: 10px;">
+<br>ID: ${movie.id} <br> عنوان: ${movie.title} <br> ژانر: ${movie.genre} <br> امتیاز: ${movie.rating}</a></li></div>
                     
                     `)
 
                 });
+                
 
 
                 // movieListContainer.innerHTML = movieListHtml;
@@ -92,9 +94,30 @@ function fetchMovies() {
         });
 }
 
+function gotopage(){
+    window.location.href = "test.html";
+}
+
 
 
 setTimeout(() => {
 
     document.addEventListener('load', fetchMovies())
 }, 0);
+
+let currentIndex = 0;
+
+function moveSlide() {
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+
+  // برو به اسلاید بعدی
+  currentIndex = (currentIndex + 1) % totalSlides;
+
+  // جابجا کردن اسلایدر
+  const slider = document.querySelector('.slider');
+  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+// تنظیم یک تایمر برای اسلاید خودکار
+setInterval(moveSlide, 3000);  // 3000 میلی‌ثانیه (3 ثانیه)
